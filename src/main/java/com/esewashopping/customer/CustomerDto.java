@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class CustomerDto {
-
     @JsonAlias({"full_name","FullName"})
     @Pattern(regexp = "[a-zA-Z]{10,50}", message = "firstName must be between 10 and 50 characters and contain only letters")
     private String fullName;
@@ -22,4 +21,13 @@ public class CustomerDto {
 
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be a 10-digit number")
     private String contact;
+
+    public CustomerDto(String fullName, String email, String password, String address, String contact) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.contact = contact;
+    }
+
 }

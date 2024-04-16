@@ -19,4 +19,13 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
+
+    public Category(Integer catId,String name) {
+        this.name = name;
+        this.catId = catId;
+    }
+
+    public Category() {
+
+    }
 }

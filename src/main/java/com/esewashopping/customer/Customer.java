@@ -90,4 +90,14 @@ public class Customer implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Customer(Integer cId, String fullName, String password, String email, String address, String contact,Status status) {
+        this.cId = cId;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.contact = contact;
+        this.status = status;
+    }
 }

@@ -18,6 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+
 public class CustomerServiceImpl implements CustomerService {
 
     private final ModelMapper modelMapper;
@@ -30,7 +31,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String updateCustomer(CustomerDto customerDto, Integer cid) {
-        Customer existingCustomer = customerRepo.findById(cid).orElseThrow(() -> new ResourceNotFoundException("Customer", "CustomerId", cid));
+        Customer existingCustomer = customerRepo.findById(cid)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "CustomerId", cid));
         Customer updateCustomer = modelMapper.map(customerDto, Customer.class);
         existingCustomer.setContact(updateCustomer.getContact());
         existingCustomer.setEmail(updateCustomer.getEmail());
@@ -107,7 +109,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean verify(String code) {
         Customer customer = this.customerRepo.findByVerificationCode(code);
-        if (customer == null) {
+        if (customer != null) {
             return false;
         } else {
             customer.setVerificationCode(null);

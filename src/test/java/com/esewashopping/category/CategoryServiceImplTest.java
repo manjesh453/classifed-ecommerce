@@ -1,5 +1,6 @@
 package com.esewashopping.category;
 
+import com.esewashopping.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -78,5 +79,14 @@ class CategoryServiceImplTest {
         when(modelMapper.map(categoryList.get(0), CategoryResponseDTO.class)).thenReturn(categoryDtoList.get(0));
         List<CategoryResponseDTO>list=categoryService.getAllCategory();
         assertEquals(categoryDtoList,list);
+    }
+    @Test
+    void whenResourceNotFoundException(){
+       Exception exception=assertThrows(ResourceNotFoundException.class,()->{
+           categoryService.categoryById(1);
+       }) ;
+        String expectedMessage = "Category not found with CategoryId : 1";
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
     }
 }

@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: esewa
+      MYSQL_ROOT_PASSWORD: root
+
+    ports:
+      - "3307:3306"
+    networks:
+      - app-network
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/esewa?useUnicode=true&characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
